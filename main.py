@@ -1,6 +1,6 @@
 import asyncio
 
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request
 from fastapi.responses import PlainTextResponse, StreamingResponse, HTMLResponse
 from typing import List
 
@@ -10,6 +10,11 @@ app = FastAPI()
 @app.get("/", response_class=PlainTextResponse)
 async def index():
     return "Hello world"
+
+
+@app.get("/headers")
+async def path_headers(request: Request):
+    return request.headers
 
 
 @app.get("/sleep/block/{t}")
